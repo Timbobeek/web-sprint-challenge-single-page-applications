@@ -1,4 +1,4 @@
-import {Link, useRouteMatch} from 'react-router-dom';
+import {Link, useRouteMatch, useHistory} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -33,8 +33,10 @@ function PizzaForm(props){
 
   // const{values, submit} = props
 
-  const [orders, setOrders] = useState(initialOrders);
+  // const [orders, setOrders] = useState(initialOrders);
   const [formValues, setFormValues] = useState(initialFormValues);
+
+  let history = useHistory();
 
   const updateForm = (inputName, inputValue) => {
     setFormValues({ ...formValues, [inputName]: inputValue });
@@ -45,7 +47,7 @@ function PizzaForm(props){
     const { name, value, checked, type } = evt.target;
     
     const valueToUse = type === 'checkbox' ? checked : value;
-    console.log(evt, name, valueToUse)
+    // console.log(evt, name, valueToUse)
     // if ()
 
     updateForm(name, valueToUse);
@@ -54,6 +56,18 @@ function PizzaForm(props){
   const onSubmit = evt => {
     evt.preventDefault()
     console.log(formValues);
+
+    axios.post('https://reqres.in/api/orders', formValues)
+      .then(res => {
+        // console.log(res)
+        setFormValues(initialFormValues);
+        // go to confirmation
+        history.push("/confirmed")
+      })
+      .catch(err =>
+        console.log(err)
+      )
+
     // submit()
   }
 

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from 'axios';
 import {Route, Switch, Link, useRouteMatch} from 'react-router-dom';
 import PizzaForm from "./PizzaForm";
+import OrderConfirmation from "./OrderConfirmation";
 
 
 const StyledApp = styled.div`
@@ -31,6 +32,9 @@ const App = () => {
       <Switch>
         <Route path='/pizza'>
           <PizzaForm />
+        </Route>
+        <Route path='/confirmed'>
+          <OrderConfirmation />
         </Route>
         <Route path='/'>
           <button id='order-pizza'> 
