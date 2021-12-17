@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import * as yup from 'yup';
+import FormSchema from './FormSchema';
 
 const initialFormValues = {
     name: '',   /// text input
@@ -100,7 +101,7 @@ function PizzaForm(props){
               <input id='special-text'
                 name="special"
                 type="text"
-                placeholder="Anything else you want to add?"
+                placeholder="Anything else?"
                 maxLength="100"
                 // value={values.name}
                 onChange={onChange}
