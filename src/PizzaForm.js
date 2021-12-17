@@ -1,9 +1,19 @@
 import {Link, useRouteMatch} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import * as yup from 'yup';
 import FormSchema from './FormSchema';
+
+const StyledOrder = styled.div`
+background-color: yellow;
+color: black;
+display:flex;
+flex-direction: column;
+align-items: center;
+width: 20em;
+`
 
 const initialFormValues = {
     name: '',   /// text input
@@ -15,46 +25,63 @@ const initialFormValues = {
     special: ''    //text input with spec instructions
 }
 
+const initialOrders = [];
 
 
 
 function PizzaForm(props){
 
-  const{values, update, submit} = props
+  // const{values, submit} = props
+
+  const [orders, setOrders] = useState(initialOrders);
+  const [formValues, setFormValues] = useState(initialFormValues);
+
+  const updateForm = (inputName, inputValue) => {
+    setFormValues({ ...formValues, [inputName]: inputValue });
+  }
+
 
   const onChange = evt => {
-    const name = evt.target.name;
-    const { value } = evt.target;
-    update(name, value);
+    const { name, value, checked, type } = evt.target;
+    
+    const valueToUse = type === 'checkbox' ? checked : value;
+    console.log(evt, name, valueToUse)
+    // if ()
+
+    updateForm(name, valueToUse);
   }
 
   const onSubmit = evt => {
     evt.preventDefault()
-    submit()
+    console.log(formValues);
+    // submit()
   }
 
   return(
+    
     <form className = 'form container' onSubmit={onSubmit}>
-      <div className='form-group inputs'>
-        <button> 
+      <button> 
             <Link to={`/`}>Home</Link>
-        </button>
+      </button>
+      <div id='pizza-form'>
+        <StyledOrder>
+
       <h1>Build your pizza!</h1>
 
-        <label>Name
+        <label>Your Name
               <input id='name-input'
                 name="name"
                 type="text"
                 placeholder="Type your name"
                 maxLength="15"
-                // value={values.name}
+                value={formValues.name}
                 onChange={onChange}
               />
         </label>
 
-
         <label>Size
-              <select id="size-dropdown" onChange={onChange}>
+              <select id="size-dropdown" onChange={onChange} name="size"
+                  >
                 <option value="">-- Select a Size --</option>
                 <option value="S">Small</option>
                 <option value="M">Medium</option>
@@ -113,6 +140,7 @@ function PizzaForm(props){
       <div className='form submit'>
         <button>SUBMIT ORDER</button>
       </div>
+      </StyledOrder>
       </div>
     </form>
   )

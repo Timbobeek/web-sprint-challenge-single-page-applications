@@ -11,26 +11,34 @@ color: purple;
 display:flex;
 flex-direction: column;
 align-items: center;
+font-family: monospace;
+font-size: 2em;
+`
+
+const StyledHomeButton = styled.button`
+background-color: lime;
+padding: 2%;
+width: 10%;
 `
 
 const App = () => {
   return (
     <StyledApp>
-      <h1>Lambda Eats</h1>
-      <p>Best Pizza on the WEB</p>
+      <h1>L@mbd@ E@ts</h1>
+      <p>Best Pizz@ on the WEB</p>
       
 
       <Switch>
         <Route path='/pizza'>
-          <PizzaForm/>
+          <PizzaForm />
         </Route>
         <Route path='/'>
           <button id='order-pizza'> 
             <Link to={`/pizza`}>Press if Hungry </Link>
           </button>
-          <button> 
+          <StyledHomeButton> 
             <Link to={`/`}>Home</Link>
-          </button>
+          </StyledHomeButton>
         </Route>
       </Switch>
     </StyledApp>
