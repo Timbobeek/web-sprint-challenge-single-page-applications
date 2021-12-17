@@ -35,8 +35,16 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question.
 
 1. In 1-2 sentences, explain what React's `useRouteMatch` hook is used for.
-1. How would you explain form validation to someone who has never programmed before?
-1. In 1-2 sentences, define end to end testing.
+
+It is a hook that allows us to add nested routes to an application so that we can change a single parameter in the URL without having to change the full URL.
+
+2. How would you explain form validation to someone who has never programmed before?
+
+It is a mechanism that lets the user know whether his/her input is acceptable based on the logic of a program being used. If the input is not validated, the program might disallow the user to utilize a program's features.
+
+3. In 1-2 sentences, define end to end testing.
+
+End-to-end testing covers the entire spectrum of user experience, pretty much everything that any hypothetical user might want to utilize in an app, all supported scenarios.
 
 ## Instructions
 
@@ -78,6 +86,8 @@ there is a key for each of the toppings and they are booleans
 (Note - your payload should look similar to the about data)
 
 #### Testing MVP
+
+INSTALL CYPRESSS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Implement the following tests in Cypress:
 
