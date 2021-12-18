@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import * as yup from 'yup';
 import FormSchema from './FormSchema';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const StyledOrder = styled.div`
 background-color: yellow;
@@ -74,10 +75,13 @@ function PizzaForm(props){
 
     axios.post('https://reqres.in/api/orders', formValues)
       .then(res => {
-        // console.log(res)
+
+        console.log(res.data)
+
         setFormValues(initialFormValues);
+        
         // go to confirmation
-        history.push("/confirmed")
+        history.push("/confirmed", res.data)
       })
       .catch(err =>
         console.log(err)

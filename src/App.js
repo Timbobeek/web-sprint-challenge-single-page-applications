@@ -30,8 +30,6 @@ const App = () => {
     <StyledApp>
       <h1>L@mbd@ E@ts</h1>
       <p>Best Pizz@ on the WEB</p>
-      
-
       <Switch>
         <Route exact path='/'>
           <button id='order-pizza' onClick={() => history.push('/pizza')}>Press if Hungry</button>
