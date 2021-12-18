@@ -1,30 +1,13 @@
 import { Link } from "react-router-dom";
-// import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-
-const StyledOrder = styled.div`
-  background-color: yellow;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 20em;
-`;
 
 function OrderConfirmation(props) {
   const { location: {state} } = props
-  // console.log(state)
-//   {
-//     "name": "123123",
-//     "size": "S",
-//     "topping1": false,
-//     "topping2": false,
-//     "topping3": false,
-//     "topping4": true,
-//     "special": ""
-// }
 
   const topping = (value) => value ? "Yes" : "No";
+
+  if (!state) {
+    return (<></>)
+  }
 
   return (
     <>
