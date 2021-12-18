@@ -15,7 +15,11 @@ flex-direction: column;
 align-items: center;
 width: 20em;
 `
-
+// const StyledHomeButton = styled.button`
+// background-color: lime;
+// padding: 2%;
+// width: 10%;
+// `
 const StyledErrors = styled.div`
 color: red;
 margin-top: 1em;
@@ -97,25 +101,13 @@ function PizzaForm(props){
       .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
   }
 
-  // useEffect(() => {
-  //   FormSchema.isValid(formValues).then(valid => {
-  //     // console.log('valid:', valid)
-  //     // console.log('disable?:', !valid)
-  //     setDisabled(!valid)
-  //   })
-  // }, [formValues])
-  
-  const {path, url} = useRouteMatch();
-
-  // console.log(path, url)
-
-
   return(
     
     <form className = 'form container' onSubmit={onSubmit}>
       <button id='order-button'> 
           <Link to={'/'}>Home</Link>
       </button>
+
       <div id='pizza-form'>
         <StyledOrder>
 
@@ -193,7 +185,7 @@ function PizzaForm(props){
       <StyledErrors id="errors">{formErrors.name}</StyledErrors>
 
       <div className='form submit'>
-        <button>SUBMIT ORDER</button>
+        <button id="submit">SUBMIT ORDER</button>
       </div>
       </StyledOrder>
       </div>
