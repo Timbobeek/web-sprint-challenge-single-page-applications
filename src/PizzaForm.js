@@ -15,6 +15,12 @@ align-items: center;
 width: 20em;
 `
 
+const StyledErrors = styled.div`
+color: red;
+margin-top: 1em;
+margin-bottom: 1em;
+`
+
 const initialFormValues = {
     name: '',   /// text input
     size: '',   ///dropdown
@@ -25,8 +31,14 @@ const initialFormValues = {
     special: ''    //text input with spec instructions
 }
 
-const initialOrders = [];
+const initialFormErrors = {
+  name: '',
+}
 
+const initialOrders = [];
+const initialDisabled = true;
+
+//Validation for name and the error message is "name must be at least 2 characters"
 
 
 function PizzaForm(props){
@@ -35,6 +47,8 @@ function PizzaForm(props){
 
   // const [orders, setOrders] = useState(initialOrders);
   const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   let history = useHistory();
 
@@ -50,6 +64,7 @@ function PizzaForm(props){
     // console.log(evt, name, valueToUse)
     // if ()
 
+    validate(name, value);
     updateForm(name, valueToUse);
   }
 
@@ -71,11 +86,31 @@ function PizzaForm(props){
     // submit()
   }
 
+  const validate = (name, value) => {
+    yup.reach(FormSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: '' }))
+      .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
+  }
+
+  // useEffect(() => {
+  //   FormSchema.isValid(formValues).then(valid => {
+  //     // console.log('valid:', valid)
+  //     // console.log('disable?:', !valid)
+  //     setDisabled(!valid)
+  //   })
+  // }, [formValues])
+  
+  const {path, url} = useRouteMatch();
+
+  // console.log(path, url)
+
+
   return(
     
     <form className = 'form container' onSubmit={onSubmit}>
-      <button> 
-            <Link to={`/`}>Home</Link>
+      <button id='order-button'> 
+          <Link to={'/'}>Home</Link>
       </button>
       <div id='pizza-form'>
         <StyledOrder>
@@ -83,14 +118,16 @@ function PizzaForm(props){
       <h1>Build your pizza!</h1>
 
         <label>Your Name
-              <input id='name-input'
-                name="name"
-                type="text"
-                placeholder="Type your name"
-                maxLength="15"
-                value={formValues.name}
-                onChange={onChange}
-              />
+            <input id='name-input'
+              name="name"
+              type="text"
+              placeholder="Type your name"
+              maxLength="15"
+              value={formValues.name}
+              onChange={onChange}
+              // errors={formErrors}
+              // change={inputChange}
+            />
         </label>
 
         <label>Size
@@ -106,7 +143,7 @@ function PizzaForm(props){
 
         <h2>Choose your toppings!!!</h2>
 
-        <label>Topping1
+        <label>Tomatoes
           <input
             onChange={onChange}
             name='topping1'
@@ -114,7 +151,7 @@ function PizzaForm(props){
           />
         </label>
 
-        <label>Topping2
+        <label>Peppers
           <input
             onChange={onChange}
             name='topping2'
@@ -122,7 +159,7 @@ function PizzaForm(props){
           />
         </label>
 
-        <label>Topping3
+        <label>Mushrooms
           <input
             onChange={onChange}
             name='topping3'
@@ -130,7 +167,7 @@ function PizzaForm(props){
           />
         </label>
 
-        <label>Topping4
+        <label>Pineapple
           <input
             onChange={onChange}
             name='topping4'
@@ -149,7 +186,7 @@ function PizzaForm(props){
               />
         </label>
 
-
+      <StyledErrors id="errors">{formErrors.name}</StyledErrors>
 
       <div className='form submit'>
         <button>SUBMIT ORDER</button>
@@ -159,9 +196,6 @@ function PizzaForm(props){
     </form>
   )
 }
-
-
-
 
 
 export default PizzaForm

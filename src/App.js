@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import axios from 'axios';
-import {Route, Switch, Link, useRouteMatch} from 'react-router-dom';
+import {Route, Switch, Link, useHistory} from 'react-router-dom';
 import PizzaForm from "./PizzaForm";
 import OrderConfirmation from "./OrderConfirmation";
 
@@ -23,6 +23,9 @@ width: 10%;
 `
 
 const App = () => {
+
+  let history = useHistory()
+
   return (
     <StyledApp>
       <h1>L@mbd@ E@ts</h1>
@@ -30,20 +33,14 @@ const App = () => {
       
 
       <Switch>
-        <Route path='/pizza'>
-          <PizzaForm />
-        </Route>
-        <Route path='/confirmed'>
-          <OrderConfirmation />
-        </Route>
-        <Route path='/'>
-          <button id='order-pizza'> 
-            <Link to={`/pizza`}>Press if Hungry </Link>
-          </button>
+        <Route exact path='/'>
+          <button id='order-pizza' onClick={() => history.push('/pizza')}>Press if Hungry</button>
           <StyledHomeButton> 
             <Link to={`/`}>Home</Link>
           </StyledHomeButton>
         </Route>
+        <Route path='/pizza' component={PizzaForm} />
+        <Route path='/confirmed' component={OrderConfirmation} />
       </Switch>
     </StyledApp>
   );
