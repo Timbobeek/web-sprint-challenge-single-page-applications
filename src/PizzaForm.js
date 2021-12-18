@@ -40,18 +40,10 @@ const initialFormErrors = {
   name: "",
 };
 
-const initialOrders = [];
-const initialDisabled = true;
-
-//Validation for name and the error message is "name must be at least 2 characters"
 
 function PizzaForm(props) {
-  // const{values, submit} = props
-
-  // const [orders, setOrders] = useState(initialOrders);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-  const [disabled, setDisabled] = useState(initialDisabled);
 
   let history = useHistory();
 
@@ -61,10 +53,7 @@ function PizzaForm(props) {
 
   const onChange = (evt) => {
     const { name, value, checked, type } = evt.target;
-
     const valueToUse = type === "checkbox" ? checked : value;
-    // console.log(evt, name, valueToUse)
-    // if ()
 
     validate(name, value);
     updateForm(name, valueToUse);
@@ -77,6 +66,7 @@ function PizzaForm(props) {
     axios
       .post("https://reqres.in/api/orders", formValues)
       .then((res) => {
+
         console.log(res.data);
 
         setFormValues(initialFormValues);
@@ -85,8 +75,6 @@ function PizzaForm(props) {
         history.push("/confirmed", res.data);
       })
       .catch((err) => console.log(err));
-
-    // submit()
   };
 
   const validate = (name, value) => {
